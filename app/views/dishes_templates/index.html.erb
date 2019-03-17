@@ -10,33 +10,34 @@
     <%= search_form_for @q, :class => "collapse", :id => "dishes_filters" do |f| %>
       <p class="lead">Narrow results:</p>
 
-        <div class="form-group">
+  <div class="form-group">
     <%= f.label :name_cont, "Name contains" %>
     <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
   </div>
 
-<div class="form-group">
-          <%= f.label :created_at, "Created at" %>
-          <div class="row">
-            <div class='col-md-6 mb-1'>
-              <div class='input-group date' id='created_atgteqPicker'>
-                  <%= f.text_field :created_at_gteq, :class => "form-control", :placeholder => "Created at greater than or equal to" %>
-                  <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
+  <div class="form-group">
+            <%= f.label :created_at, "Created at" %>
+            <div class="row">
+              <div class='col-md-6 mb-1'>
+                <div class='input-group date' id='created_atgteqPicker'>
+                    <%= f.text_field :created_at_gteq, :class => "form-control", :placeholder => "Created at greater than or equal to" %>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+              </div>
+  
+              <div class='col-md-6'>
+                <div class='input-group date' id='created_atlteqPicker'>
+                    <%= f.text_field :created_at_lteq, :class => "form-control", :placeholder => "Created at less than or equal to" %>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
               </div>
             </div>
-
-            <div class='col-md-6'>
-              <div class='input-group date' id='created_atlteqPicker'>
-                  <%= f.text_field :created_at_lteq, :class => "form-control", :placeholder => "Created at less than or equal to" %>
-                  <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-              </div>
-            </div>
-          </div>
-      </div>
+        </div>
+        
       <script type="text/javascript">
           $(function () {
               $('#created_atgteqPicker').datetimepicker({
@@ -55,10 +56,51 @@
           });
       </script>
 
-        <div class="form-group">
+    <div class="form-group">
       <%= f.label :cuisine_name_cont, "Cuisine name contains" %>
-      <%= f.text_field :cuisine_name_cont, :class => "form-control", :placeholder => "Cuisine name contains" %>
+      <%= f.text_field :cuisine_name_cont,  :class => "form-control", :placeholder => "Cuisine name contains" %>
     </div>
+    
+<!-- another try -->
+
+    <div class="form-group">
+      <% Cuisine.all.each do |cuisine| %>
+        <label>
+          <ul>
+            <%= check_box_tag('q[cuisine_id_eq_any][]', cuisine.id, (true if @q.cuisine_id_eq_any.try(:include?, cuisine.id))) %>
+            <%= cuisine.name %>           
+          </ul>
+
+        </label>
+      <% end %>
+    </div>
+    
+<!-- 1st try for filter with checkbox -->    
+<!--    <div class="form-group">-->
+<!--      <%= f.label :cuisine, "Cuisine" %>-->
+<!--      <%= f.check_box :cuisine_name_eq, {:class => "form-control"}, "Breakfast"%> -->
+<!--      <%= f.check_box :cuisine_name_eq, {:class => "form-control"}, "American"%> -->
+
+<!--    </div>-->
+<!-- 2nd try for filter with checkbox --> 
+    <!--<div class="form-group">-->
+    <!--  <label for="q_cuisine_id_eq_any">-->
+    <!--    Cuisine-->
+    <!--  </label>-->
+    <!--  <div class="checkbox">-->
+    <!--    <label>-->
+    <!--      <input type="checkbox" name="q[cuisine_id_eq_any}{}" id="q_cuisine_id_eq_any_"] value="1">-->
+    <!--      "Breakfast"-->
+    <!--    </label>-->
+    <!--  </div>-->
+      
+<!--      <div class="checkbox">-->
+<!--        <label>-->
+<!--          <input type="checkbox" name="q[cuisine_id_eq_any}{}" id="q_cuisine_id_eq_any_"] value="2">-->
+<!--          "American"-->
+<!--        </label>-->
+<!--      </div>-->
+<!--    </div>-->
 
 <div class="form-group">
       <%= f.label :bookmarks_notes_cont, "Bookmark notes contains" %>

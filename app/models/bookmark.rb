@@ -11,6 +11,9 @@ class Bookmark < ApplicationRecord
              :counter_cache => true
 
   # Indirect associations
+  
+  has_one :neighborhood, :through => :venue
+  has_one :cuisine, :through => :dish
 
   # Validations
 
