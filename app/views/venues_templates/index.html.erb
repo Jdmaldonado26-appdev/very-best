@@ -1,8 +1,8 @@
 <div class="page-header">
-  <h1>
-    Venues
-    <a href="/venues/new" class="btn btn-lg btn-success">New Venue</a>
-  </h1>
+  
+    
+    <a href="/venues/new" class="btn btn-block btn-success">New Venue</a>
+  
 </div><div class="row mb-1">
   <div class="col-md-12">
     <%= search_form_for @q, :class => "collapse", :id => "venues_filters" do |f| %>
@@ -48,17 +48,16 @@
       <tr>
         
       </tr>
+      <% @venues.each do |venue| %>
+      <%= venue.name %>
 
-      <% @bookmarked_venues = Bookmark.where(user_id: current_user.id)%>
-      <% @bookmarked_venues.each do |bookmark|%>
-      <tr>
-        <td><a href="/venues/<%= bookmark.venue_id %>"><%= Venue.find(bookmark.venue_id).name %></a></td>
+        <td><a href="/venues/<%= venue.name %>"><%= venue.name %></a></td>
         
         <td>
-          <% if Venue.find(bookmark.venue_id).neighborhood.present? %>
+          <% if venue.neighborhood.present? %>
             
-              <%= Venue.find(bookmark.venue_id).neighborhood.name %>
-        
+              <%= venue.neighborhood.name %>
+
           <% end %>
         </td>
         
