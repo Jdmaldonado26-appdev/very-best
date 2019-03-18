@@ -1,4 +1,5 @@
 class DishesController < ApplicationController
+  # kjf
   def index
     @q = Dish.ransack(params.fetch("q", nil))
     @dishes = @q.result(:distinct => true).includes(:cuisine, :bookmarks, :fans, :specialists).page(params.fetch("page", nil)).per(10)
